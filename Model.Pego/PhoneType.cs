@@ -14,6 +14,6 @@ namespace Model.Pego
         }
         [Required]
         [MaxLength(50)]
-        public string Name { get; set; }
+        public virtual string Name { get; set; }
     }
 }

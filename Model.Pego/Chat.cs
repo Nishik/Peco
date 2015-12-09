@@ -13,7 +13,7 @@ namespace Model.Pego
         public Chat(): base()
         {
             this.DateCreated = DateTime.Now;
-            this.Messages = new List<Message> ();
+            this.Messages = new HashSet<Message> ();
         }
 
         public DateTime? DateCreated { get; set; }
@@ -26,6 +26,6 @@ namespace Model.Pego
         public DateTime? ModifiedDate { get; set; }
         public virtual ICollection<Message> Messages { get; set; }
         [MaxLength(500)]
-        public string Title { get; set; }
+        public virtual string Title { get; set; }
     }
 }

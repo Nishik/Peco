@@ -13,18 +13,19 @@ namespace Model.Pego
         public User ():base()
         {
             this.DateCreated = DateTime.Now;
-            this.Phones = new List<Phone>();
-            this.Emails = new List<Email>();
-            this.Accounts = new List<Account>();
+            this.Phones = new HashSet<Phone>();
+            this.Emails = new HashSet<Email>();
+            this.Accounts = new HashSet<Account>();
             this.Reminders = new HashSet<Reminder>();
+            this.UserProjects = new HashSet<UserProject>();
         }
 
         public DateTime? DateCreated { get; set; }
         [MaxLength(25)]
-        public string FirstName { get; set;}
+        public virtual string FirstName { get; set;}
         [MaxLength(25)]
-        public string LastName { get; set; }
-        public DateTime? DOB { get; set; }
+        public virtual string LastName { get; set; }
+        public virtual DateTime? DOB { get; set; }
         public virtual ICollection<Phone> Phones { get; set; }
         public virtual ICollection<Email> Emails { get; set; }
         public virtual ICollection<Account> Accounts { get; set; }
@@ -34,8 +35,7 @@ namespace Model.Pego
         public virtual ICollection<Reminder> Reminders { get; set; }
         public Guid SysRoleId { get; set; }
         [ForeignKey("SysRoleId")]
-        public SysRole SysRole { get; set; }
-        //КАК ХРАНИТЬ ПАРОЛЬ
-        //public string Password { get; set; }
+        public virtual SysRole SysRole { get; set; }
+        public virtual ICollection<UserProject> UserProjects { get; set; }
     }
 }

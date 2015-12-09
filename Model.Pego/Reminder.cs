@@ -24,8 +24,9 @@ namespace Model.Pego
         public virtual Project Project{ get; set; }
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
+        [Required]
         [MaxLength(500)]
-        public string Title { get; set; }
+        public virtual string Title { get; set; }
         //public ALERT
         public virtual ICollection<User> Users { get; set; }
     }

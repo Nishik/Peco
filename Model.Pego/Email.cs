@@ -15,9 +15,10 @@ namespace Model.Pego
             this.DateCreated = DateTime.Now;
         }
         public DateTime? DateCreated { get; set; }
+        [Required]
         [MaxLength(150)]
-        public string Name { get; set; }
-        public bool Main { get; set; }
+        public virtual string Name { get; set; }
+        public virtual bool Main { get; set; }
         public Guid UserId { get; set; }
         [ForeignKey("UserId")]
         public virtual User User { get; set; }

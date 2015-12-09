@@ -12,14 +12,12 @@ namespace Model.Pego
         public UserProject():base()
         {
             this.DateCreated = DateTime.Now;
+            this.Users = new HashSet<User>();
+            this.Projects = new HashSet<Project>();
         }
-        public DateTime? DateCreated { get; set; }
-        public Guid UserId { get; set; }
-        [ForeignKey("UserId")]
-        public virtual User User { get; set; }
-        public Guid ProjectId { get; set; }
-        [ForeignKey("ProjectId")]
-        public virtual Project Project { get; set;}
+        public virtual DateTime? DateCreated { get; set; }
+        public virtual ICollection<User> Users { get; set; }
+        public virtual ICollection<Project> Projects { get; set; }
         public Guid ProjectRoleId { get; set; }
         [ForeignKey("ProjectRoleId")]
         public virtual ProjectRole ProjectRole { get; set; }

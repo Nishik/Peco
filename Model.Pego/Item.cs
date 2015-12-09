@@ -20,18 +20,19 @@ namespace Model.Pego
         public Guid CreatedById { get; set; }
         [ForeignKey("CreatedById")]
         public virtual User CreatedBy { get; set; }
+        [Required]
         [MaxLength(500)]
-        public string Name { get; set; }
-        public string Description { get; set; }
+        public virtual string Name { get; set; }
+        public virtual string Description { get; set; }
         [Column(TypeName = "datetime2")]
         public DateTime? EventDate { get; set; }
 
         public Guid GeoLocationId { get; set; }
         [ForeignKey("GeoLocationId")]
         public virtual GeoLocation GeoLocation { get; set; }
-        public string WebSite { get; set; }
-        public int Sum { get; set; }
-        public bool Voting { get; set; }
+        public virtual string WebSite { get; set; }
+        public virtual int Sum { get; set; }
+        public virtual bool Voting { get; set; }
         public DateTime? DateModified { get; set; }
         public Guid ModiefiedById { get; set; }
         [ForeignKey("ModiefiedById")]

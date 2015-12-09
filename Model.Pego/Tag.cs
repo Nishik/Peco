@@ -15,8 +15,9 @@ namespace Model.Pego
             this.Projects = new HashSet<Project>();
         }
         public DateTime? DateCreated { get; set; }
+        [Required]
         [MaxLength(25)]
-        public string Name { get; set; }
+        public virtual string Name { get; set; }
         public virtual ICollection<Project> Projects { get; set; }
 
     }

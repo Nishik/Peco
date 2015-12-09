@@ -10,8 +10,9 @@ namespace Model.Pego
     public class VoteType: BaseEntity
     {
         public VoteType() : base() { }
+        [Required]
         [MaxLength(25)]
-        public string Name { get; set; }
+        public virtual string Name { get; set; }
 
     }
 }

@@ -14,8 +14,8 @@ namespace Model.Pego
         {
             
         }
-        public DbGeography Location { get; set; }
+        public virtual DbGeography Location { get; set; }
         [MaxLength(500)]
-        public string Address { get; set; }
+        public virtual string Address { get; set; }
     }
 }
