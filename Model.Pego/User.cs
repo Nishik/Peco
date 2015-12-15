@@ -5,10 +5,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+// НУЖНО ДОБАВИТЬ IDENTITY
 
 namespace Model.Pego
 {
-    public class User: BaseEntity, IEntity
+    public class User: BaseEntity, IEntity, IUser<Guid>
     {
         public User ():base()
         {
@@ -21,6 +22,8 @@ namespace Model.Pego
         }
 
         public DateTime? DateCreated { get; set; }
+        [MaxLength(25)]
+        public virtual string UserName { get; set;}
         [MaxLength(25)]
         public virtual string FirstName { get; set;}
         [MaxLength(25)]

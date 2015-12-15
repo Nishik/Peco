@@ -34,10 +34,16 @@ namespace AccessDataLayer.Pego.DataContext
         public DbSet<UserSettings> UserSettings { get; set; }
         public DbSet<VoteType> VoteType { get; set; }
 
-
+//ПРОВЕРИТЬ!!!  http://stackoverflow.com/questions/19460386/how-can-i-change-the-table-names-when-using-visual-studio-2013-aspnet-identity/19577814#19577814
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            
+            modelBuilder.Entity<ApplicationUser>().ToTable("User");
+            /* modelBuilder.Entity<IdentityRole>().ToTable("Role");
+        modelBuilder.Entity<IdentityUserRole>().ToTable("UserRole");
+        modelBuilder.Entity<IdentityUserClaim>().ToTable("UserClaim");
+        modelBuilder.Entity<IdentityUserLogin>().ToTable("UserLogin");*/
 
             //modelBuilder.Entity<Content>()
             //    .HasMany(c => c.Editors)

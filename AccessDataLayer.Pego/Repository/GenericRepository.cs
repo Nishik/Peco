@@ -7,10 +7,13 @@ using Model.Pego;
 using System.Data.Entity;
 using System.Data.Entity.Validation;
 using AccessDataLayer.Pego.DataContext;
+//https://code.msdn.microsoft.com/Repository-Pattern-in-MVC5-0bf41cd0
+//http://stackoverflow.com/questions/22221457/usermanager-createasyncuser-password-stuck-in-infinite-loop
 
 namespace AccessDataLayer.Pego.Repository
 {
-    public class GenericRepository<T>: IRepository<T> where T : BaseEntity
+    // добавил Tkey проверить
+    public class GenericRepository<T, TKey>: IRepository<T> where T : BaseEntity
     {
         private PegoDB _context;
         private DbSet<T> _dbSet;
@@ -33,7 +36,7 @@ namespace AccessDataLayer.Pego.Repository
             this._context = context;
         }
 
-        public void Create(T item)
+        public virtual void Insert(T item)
         {
             try
             {
@@ -62,7 +65,7 @@ namespace AccessDataLayer.Pego.Repository
             }
         }
 
-        public void Delete(T id)
+        public virtual void Delete(T id)
         {
             try
             {
@@ -91,22 +94,27 @@ namespace AccessDataLayer.Pego.Repository
             }
         }
 
-        public T Find(object id)
+        public virtual T GetById(object id)
         {
             return this.dbSet.Find(id);
         }
+      
+        public Task<T> GetByIdAsync (object id)
+        {
+            return await this.dbSet.FindAsync(id);
+        }
 
-        public IEnumerable<T> GetAll()
+        public virtual IEnumerable<T> GetAll()
         {
             return this.dbSet;
         }
 
-        public void Save()
+        public virtual void Save()
         {
             this._context.SaveChanges();
         }
 
-        public void Update(T item)
+        public virtual void Update(T item)
         {
             try
             {
