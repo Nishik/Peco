@@ -7,13 +7,11 @@ using Model.Pego;
 using System.Data.Entity;
 using System.Data.Entity.Validation;
 using AccessDataLayer.Pego.DataContext;
-//https://code.msdn.microsoft.com/Repository-Pattern-in-MVC5-0bf41cd0
-//http://stackoverflow.com/questions/22221457/usermanager-createasyncuser-password-stuck-in-infinite-loop
+using System.Linq.Expressions;
 
 namespace AccessDataLayer.Pego.Repository
 {
-    // добавил Tkey проверить
-    public class GenericRepository<T, TKey>: IRepository<T> where T : BaseEntity
+    public class GenericRepository<T, TKey>: IRepository<T, TKey> where T : BaseEntity
     {
         private PegoDB _context;
         private DbSet<T> _dbSet;
@@ -36,7 +34,7 @@ namespace AccessDataLayer.Pego.Repository
             this._context = context;
         }
 
-        public virtual void Insert(T item)
+        public virtual void Add(T item)
         {
             try
             {
@@ -55,8 +53,8 @@ namespace AccessDataLayer.Pego.Repository
                 {
                     foreach (var validationError in validationErrors.ValidationErrors)
                     {
-                        msg += string.Format("Property: {0} Error: {1}",
-                        validationError.PropertyName, validationError.ErrorMessage) + Environment.NewLine;
+                        //msg += string.Format("Property: {0} Error: {1}",
+                        //validationError.PropertyName, validationError.ErrorMessage) + Environment.NewLine;
                     }
                 }
 
@@ -65,6 +63,7 @@ namespace AccessDataLayer.Pego.Repository
             }
         }
 
+      // TODO: Need to Decide to add async for Add, Update, Delete or not
         public virtual void Delete(T id)
         {
             try
@@ -94,19 +93,43 @@ namespace AccessDataLayer.Pego.Repository
             }
         }
 
-        public virtual T GetById(object id)
+        public virtual T GetById(TKey id)
         {
             return this.dbSet.Find(id);
         }
-      
-        public Task<T> GetByIdAsync (object id)
+
+        public async Task<T> GetByIdAsync(TKey id)
         {
             return await this.dbSet.FindAsync(id);
         }
 
         public virtual IEnumerable<T> GetAll()
         {
-            return this.dbSet;
+                return this.dbSet.ToList();
+        }
+
+        public async Task<IEnumerable<T>> GetAllAsync()
+        {
+            return await this.dbSet.ToListAsync();
+        }
+
+        public virtual T Find (Expression<Func<T,bool>> match)
+        {
+            return this.dbSet.SingleOrDefault(match);
+        }
+
+        public async Task<T> FindAsync (Expression<Func<T, bool>> match)
+        {
+            return await this.dbSet.SingleOrDefaultAsync(match);
+        }
+
+        public IEnumerable<T> FindAll(Expression<Func<T, bool>> match)
+        {
+            return this.dbSet.Where(match).ToList();
+        }
+        public async Task<IEnumerable<T>> FindAllAsync(Expression<Func<T, bool>> match)
+        {
+            return await this.dbSet.Where(match).ToListAsync();
         }
 
         public virtual void Save()
@@ -140,8 +163,5 @@ namespace AccessDataLayer.Pego.Repository
                 throw fail;
             }
         }
-
-
-
     }
 }

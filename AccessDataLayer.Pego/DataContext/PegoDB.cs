@@ -39,7 +39,7 @@ namespace AccessDataLayer.Pego.DataContext
         {
             base.OnModelCreating(modelBuilder);
             
-            modelBuilder.Entity<ApplicationUser>().ToTable("User");
+           // modelBuilder.Entity<ApplicationUser>().ToTable("User");
             /* modelBuilder.Entity<IdentityRole>().ToTable("Role");
         modelBuilder.Entity<IdentityUserRole>().ToTable("UserRole");
         modelBuilder.Entity<IdentityUserClaim>().ToTable("UserClaim");
